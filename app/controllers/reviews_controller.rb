@@ -5,14 +5,10 @@
 class ReviewsController < ApplicationController
   before_action :set_restaurant
 
-  def new
-    @review = Review.new
-  end
-
   def create
     @review = Review.new(review_params)
     @review.restaurant = @restaurant
-    return render :new unless @review.save
+    return render "restaurants/show" unless @review.save
 
     redirect_to @restaurant
   end

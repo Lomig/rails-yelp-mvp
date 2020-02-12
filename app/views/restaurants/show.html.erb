@@ -9,19 +9,24 @@
 </div>
 
 <div id="reviews">
-  <div class="review-title">
-    <h2>Reviews</h2>
+  <h2>Reviews</h2>
+  <div class="review-list">
     <% if @restaurant.reviews.empty? %>
+      <p>No review yet...</p>
+    <% else %>
+      <ul>
+        <% @restaurant.reviews.order(created_at: :desc).each do |review| %>
+          <li><%= review.content %> <%= review.rating %></li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
-    <p>No review yet... <%= link_to "Create yours!", new_restaurant_review_path(@restaurant) %></p>
-  <% else %>
-    <%= link_to(new_restaurant_review_path(@restaurant)) { icon('fas', 'plus') } %>
+  <div class="review-form">
+  <h2>Add a review</h2>
+    <%= simple_form_for([@restaurant, @review]) do |f| %>
+      <%= f.input :content %>
+      <%= f.input :rating %>
+      <%= f.button :submit %>
+    <% end %>
   </div>
-    <ul>
-      <% @restaurant.reviews.order(created_at: :desc).each do |review| %>
-        <li><%= review.content %> <%= review.rating %></li>
-      <% end %>
-    </ul>
-
-  <% end %>
 </div>

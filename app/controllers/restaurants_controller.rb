@@ -19,11 +19,12 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new(restaurant_params)
     return render :new unless @restaurant.save
 
-    redirect_to action: :index
+    redirect_to restaurants_path
   end
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    @review = Review.new
   end
 
   private

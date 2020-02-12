@@ -1,2 +1,27 @@
-<h1>Restaurants#show</h1>
-<p>Find me in app/views/restaurants/show.html.erb</p>
+<h1><%=  @restaurant.name %></h1>
+<div id="info">
+  <h2>Information</h2>
+  <ul>
+    <li>Category: <%= @restaurant.category.capitalize %></li>
+    <li>Address: <%= @restaurant.address %></li>
+    <li>Phone Number: <%= @restaurant.phone_number %></li>
+  </ul>
+</div>
+
+<div id="reviews">
+  <div class="review-title">
+    <h2>Reviews</h2>
+    <% if @restaurant.reviews.empty? %>
+  </div>
+    <p>No review yet... <%= link_to "Create yours!", new_restaurant_review_path(@restaurant) %></p>
+  <% else %>
+    <%= link_to(new_restaurant_review_path(@restaurant)) { icon('fas', 'plus') } %>
+  </div>
+    <ul>
+      <% @restaurant.reviews.order(created_at: :desc).each do |review| %>
+        <li><%= review.content %> <%= review.rating %></li>
+      <% end %>
+    </ul>
+
+  <% end %>
+</div>

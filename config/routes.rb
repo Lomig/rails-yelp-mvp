@@ -1,3 +1,11 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  get 'reviews/new'
+  get 'restaurants/index'
+  get 'restaurants/new'
+  get 'restaurants/show'
+  resources :restaurants, only: %i[index create new show] do
+    resources :review, only: %i[new create]
+  end
 end
